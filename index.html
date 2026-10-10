@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#12100f" />
+  <meta name="description" content="抖音爆款雷达：用流量、销量、竞争度与佣金，筛选值得带的好商品。" />
+  <title>抖音爆款雷达 · 带货选品助手</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <style>.hero-panel{background-image:url("./hero-products.png")}</style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="主导航">
+      <a class="brand" href="#" data-view-link="dashboard" aria-label="爆款雷达首页">
+        <span class="brand-mark"><i data-lucide="scan-search"></i></span>
+        <span><strong>抖音爆款雷达</strong><small>DOUYIN PRODUCT LAB</small></span>
+      </a>
+
+      <nav class="nav-list">
+        <button class="nav-item active" data-view="dashboard"><i data-lucide="layout-dashboard"></i><span>抖音选品</span></button>
+        <button class="nav-item" data-view="trends"><i data-lucide="trending-up"></i><span>抖音趋势</span></button>
+        <button class="nav-item" data-view="favorites"><i data-lucide="bookmark"></i><span>我的选品</span><b id="favoriteCount">0</b></button>
+        <button class="nav-item" data-view="calculator"><i data-lucide="calculator"></i><span>利润测算</span></button>
+      </nav>
+
+      <div class="sidebar-card">
+        <span class="eyebrow">今日机会</span>
+        <strong>换季刚需正在升温</strong>
+        <p>家居日用近 6 小时流量增长 31%，低客单商品更易起量。</p>
+        <button class="text-action" data-jump-category="家居日用">立即查看 <i data-lucide="arrow-right"></i></button>
+      </div>
+
+      <div class="account-row">
+        <div class="avatar">选</div>
+        <span><strong>选品运营</strong><small>个人工作台</small></span>
+        <button class="icon-button" title="设置" aria-label="设置"><i data-lucide="settings"></i></button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <span class="eyebrow">MARKET SIGNAL · <span data-market-date>--</span></span>
+          <h1 id="pageTitle">抖音选品</h1>
+        </div>
+        <div class="topbar-actions">
+          <label class="global-search">
+            <i data-lucide="search"></i>
+            <input id="globalSearch" type="search" placeholder="搜商品、类目或卖点" autocomplete="off" />
+            <kbd>⌘ K</kbd>
+          </label>
+          <button id="dataSourceBtn" class="button ghost" title="数据接入中心"><i data-lucide="database-zap"></i><span>数据接入</span></button>
+          <button id="refreshBtn" class="icon-button bordered" title="刷新数据" aria-label="刷新数据"><i data-lucide="refresh-cw"></i></button>
+          <button id="exportBtn" class="button secondary"><i data-lucide="download"></i><span>导出选品</span></button>
+        </div>
+      </header>
+
+      <section id="dashboardView" class="view active">
+        <div class="hero-panel">
+          <div class="hero-copy">
+            <span class="status-line demo" id="dataStatusLine"><i></i> 数据源：演示模式 · 等待接入</span>
+            <h2>抖音今天，什么商品<br />正在<span>快速起量？</span></h2>
+            <p>把抖音流量、直播销量、达人竞争度和精选联盟佣金放到同一张决策桌上，先找到机会，再算清利润。</p>
+            <div class="hero-actions">
+              <button class="button primary" data-scroll-products><i data-lucide="radar"></i>开始选品</button>
+              <button class="button glass" data-open-method><i data-lucide="circle-help"></i>指数怎么计算</button>
+            </div>
+          </div>
+          <div class="hero-stat">
+            <span>抖音今日爆发商品</span>
+            <strong id="heroHotCount">24</strong>
+            <p><b>+18%</b> 较昨日同期</p>
+          </div>
+        </div>
+
+        <div class="stats-grid" id="statsGrid"></div>
+
+        <section class="trend-strip">
+          <div class="section-heading compact">
+            <div><span class="eyebrow">HOT SEARCH</span><h3>实时热词</h3></div>
+            <p>抖音近 6 小时搜索增速</p>
+          </div>
+          <div class="hot-words" id="hotWords"></div>
+        </section>
+
+        <section class="product-section" id="productSection">
+          <div class="section-heading">
+            <div><span class="eyebrow">PRODUCT RADAR</span><h3>爆品机会池</h3></div>
+            <div class="result-meta"><span id="resultCount">0</span> 款候选 · <span class="demo-mark" id="dataModeLabel">演示数据</span></div>
+          </div>
+
+          <div class="filter-bar" aria-label="选品筛选器">
+            <div class="filter-main">
+              <label><span>数据平台</span><select id="platformFilter"><option value="抖音" selected>抖音（主平台）</option><option value="all">跨平台参考</option><option>快手</option><option>视频号</option><option>小红书</option></select></label>
+              <label><span>类目</span><select id="categoryFilter"><option value="all">全部类目</option></select></label>
+              <label><span>价格带</span><select id="priceFilter"><option value="all">不限价格</option><option value="0-30">¥30 以下</option><option value="30-60">¥30–60</option><option value="60-100">¥60–100</option><option value="100-9999">¥100 以上</option></select></label>
+              <label><span>最低佣金</span><select id="commissionFilter"><option value="0">不限</option><option value="15">15%+</option><option value="20">20%+</option><option value="25">25%+</option></select></label>
+              <label><span>排序</span><select id="sortFilter"><option value="score">爆发指数</option><option value="growth">流量增速</option><option value="sales">近7日销量</option><option value="commission">佣金率</option><option value="competition">低竞争优先</option></select></label>
+            </div>
+            <button id="resetFilters" class="button ghost"><i data-lucide="rotate-ccw"></i>重置</button>
+          </div>
+
+          <div class="quick-filters" id="quickFilters">
+            <button class="quick-filter active" data-quick="all">全部机会</button>
+            <button class="quick-filter" data-quick="surging">流量暴涨</button>
+            <button class="quick-filter" data-quick="lowCompetition">低竞争</button>
+            <button class="quick-filter" data-quick="highCommission">高佣金</button>
+            <button class="quick-filter" data-quick="new">新品窗口</button>
+          </div>
+
+          <div class="product-grid" id="productGrid"></div>
+          <div class="empty-state" id="emptyState" hidden>
+            <i data-lucide="search-x"></i><h3>没有找到匹配商品</h3><p>试试放宽价格或佣金条件。</p><button class="button secondary" data-reset-empty>清空筛选</button>
+          </div>
+        </section>
+      </section>
+
+      <section id="trendsView" class="view">
+        <div class="section-heading page-heading"><div><span class="eyebrow">DOUYIN TREND INTELLIGENCE</span><h2>抖音趋势洞察</h2><p>从抖音类目热度、搜索词与直播成交信号，判断下一波增长来自哪里。</p></div></div>
+        <div class="trend-layout">
+          <article class="panel chart-panel"><div class="panel-head"><div><span class="eyebrow">CATEGORY HEAT</span><h3>类目流量走势</h3></div><span class="status-badge">近 7 日</span></div><canvas id="trendChart" width="900" height="360"></canvas><div class="chart-legend" id="chartLegend"></div></article>
+          <article class="panel signal-panel"><div class="panel-head"><div><span class="eyebrow">SIGNALS</span><h3>增长信号</h3></div></div><div id="signalList"></div></article>
+        </div>
+        <div class="category-table panel"><div class="panel-head"><div><span class="eyebrow">CATEGORY RANK</span><h3>类目机会榜</h3></div><button class="button ghost" data-view-dashboard>去选品</button></div><div class="table-wrap"><table><thead><tr><th>排名</th><th>类目</th><th>热度</th><th>流量增速</th><th>竞争度</th><th>建议</th></tr></thead><tbody id="categoryTableBody"></tbody></table></div></div>
+      </section>
+
+      <section id="favoritesView" class="view">
+        <div class="section-heading page-heading"><div><span class="eyebrow">MY SHORTLIST</span><h2>我的选品</h2><p>把感兴趣的商品放在一起复盘，不错过窗口期。</p></div><button class="button secondary" id="exportFavorites"><i data-lucide="download"></i>导出清单</button></div>
+        <div class="product-grid" id="favoriteGrid"></div>
+        <div class="empty-state" id="favoriteEmpty"><i data-lucide="bookmark"></i><h3>还没有收藏商品</h3><p>在选品大厅点亮书签，就会出现在这里。</p><button class="button primary" data-view-dashboard>去发现爆品</button></div>
+      </section>
+
+      <section id="calculatorView" class="view">
+        <div class="section-heading page-heading"><div><span class="eyebrow">PROFIT LAB</span><h2>利润测算</h2><p>先算清每单收益和投流盈亏平衡点，再决定要不要上车。</p></div></div>
+        <div class="calculator-layout">
+          <form class="panel calculator-form" id="profitForm">
+            <div class="panel-head"><div><span class="eyebrow">INPUT</span><h3>填写经营参数</h3></div></div>
+            <label><span>选择候选商品</span><select id="calcProduct"></select></label>
+            <div class="form-grid"><label><span>直播售价（元）</span><input id="calcPrice" type="number" min="0" step="0.01" /></label><label><span>佣金率（%）</span><input id="calcCommission" type="number" min="0" max="100" step="0.1" /></label><label><span>预估退款率（%）</span><input id="calcRefund" type="number" min="0" max="100" value="8" step="0.1" /></label><label><span>投流成本 / 单（元）</span><input id="calcAdCost" type="number" min="0" value="4.5" step="0.1" /></label><label><span>平台及样品摊销 / 单（元）</span><input id="calcOtherCost" type="number" min="0" value="1.2" step="0.1" /></label><label><span>预计成交单量</span><input id="calcOrders" type="number" min="1" value="300" step="1" /></label></div>
+          </form>
+          <div class="calculator-results">
+            <article class="profit-hero"><span>预计净收益</span><strong id="netProfit">¥0</strong><p id="profitHint">调整左侧参数，结果会实时更新</p></article>
+            <div class="profit-cards"><article><span>有效佣金收入</span><strong id="commissionIncome">¥0</strong></article><article><span>单笔净收益</span><strong id="profitPerOrder">¥0</strong></article><article><span>投流盈亏平衡</span><strong id="breakEven">¥0 / 单</strong></article><article><span>投入产出比</span><strong id="roiValue">0.00</strong></article></div>
+            <article class="panel formula-note"><i data-lucide="info"></i><div><strong>测算口径</strong><p>有效佣金 = 售价 × 佣金率 ×（1 − 退款率）；净收益再扣除投流和其他摊销。结果仅作选品预估。</p></div></article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="mobile-nav" aria-label="移动端导航">
+      <button class="active" data-view="dashboard"><i data-lucide="layout-dashboard"></i><span>抖音选品</span></button><button data-view="trends"><i data-lucide="trending-up"></i><span>趋势</span></button><button data-view="favorites"><i data-lucide="bookmark"></i><span>收藏</span></button><button data-view="calculator"><i data-lucide="calculator"></i><span>测算</span></button>
+    </nav>
+  </div>
+
+  <aside id="compareBar" class="compare-bar" aria-live="polite">
+    <div><span>商品对比</span><strong><b id="compareCount">0</b> / 3</strong></div><div id="compareChips" class="compare-chips"></div><button id="clearCompare" class="button ghost">清空</button><button id="openCompare" class="button primary" disabled>开始对比</button>
+  </aside>
+
+  <div id="modalBackdrop" class="modal-backdrop" hidden>
+    <section id="detailModal" class="modal detail-modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle" hidden></section>
+    <section id="compareModal" class="modal compare-modal" role="dialog" aria-modal="true" aria-labelledby="compareTitle" hidden></section>
+    <section id="methodModal" class="modal method-modal" role="dialog" aria-modal="true" aria-labelledby="methodTitle" hidden>
+      <button class="modal-close icon-button" data-close-modal aria-label="关闭"><i data-lucide="x"></i></button><span class="eyebrow">SCORING METHOD</span><h2 id="methodTitle">爆发指数怎么计算？</h2><p>用五组信号衡量一款商品是否“值得现在带”，满分 100。</p><div class="method-list"><div><b>35%</b><span><strong>流量增速</strong><small>近 24 小时曝光和搜索增长</small></span></div><div><b>25%</b><span><strong>成交动能</strong><small>近 7 日销量与转化趋势</small></span></div><div><b>20%</b><span><strong>竞争机会</strong><small>达人拥挤度越低，得分越高</small></span></div><div><b>15%</b><span><strong>佣金空间</strong><small>兼顾佣金率和客单价</small></span></div><div><b>5%</b><span><strong>内容适配</strong><small>痛点明确、易演示、易种草</small></span></div></div><p class="modal-note">当前为演示数据与规则模型，接入真实平台数据后可按你的类目校准权重。</p>
+    </section>
+    <section id="sourceModal" class="modal source-modal" role="dialog" aria-modal="true" aria-labelledby="sourceTitle" hidden>
+      <button class="modal-close icon-button" data-close-modal aria-label="关闭"><i data-lucide="x"></i></button>
+      <span class="eyebrow">DATA CONNECTIONS</span>
+      <h2 id="sourceTitle">数据接入中心</h2>
+      <p>这是可直接分享的静态版本：演示数据和本地 CSV / JSON 导入可直接使用；抖店实时同步需要部署专属服务端后再接入。</p>
+      <div class="source-list">
+        <article class="source-row"><span class="source-icon"><i data-lucide="store"></i></span><div><strong>抖店开放平台</strong><small>商品列表、店铺经营数据</small></div><b id="officialSourceStatus" class="source-state waiting">需服务端</b></article>
+        <article class="source-row"><span class="source-icon"><i data-lucide="chart-no-axes-combined"></i></span><div><strong>市场趋势数据</strong><small>全市场流量、增速、竞争度</small></div><b id="marketSourceStatus" class="source-state waiting">需服务端</b></article>
+        <article class="source-row"><span class="source-icon"><i data-lucide="file-up"></i></span><div><strong>本地文件导入</strong><small>支持 CSV / JSON，数据只在当前页面使用</small></div><b id="importSourceStatus" class="source-state connected">可用</b></article>
+      </div>
+      <div class="source-actions">
+        <button id="importDataBtn" class="button secondary"><i data-lucide="upload"></i>导入 CSV / JSON</button>
+        <button id="refreshSourceStatus" class="button ghost"><i data-lucide="refresh-cw"></i>查看接入状态</button>
+        <a class="button ghost" href="https://op.jinritemai.com/docs/guide-docs/140/583?docLabel=1" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>官方接入指南</a>
+      </div>
+      <input id="dataImportInput" type="file" accept=".csv,.json,application/json,text/csv" hidden />
+      <p class="modal-note">分享版不包含任何密钥。接入实时接口时，密钥必须只保存在服务端环境变量中，不能写入浏览器代码。</p>
+    </section>
+  </div>
+
+  <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
