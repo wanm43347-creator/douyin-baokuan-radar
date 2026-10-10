@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#12100f" />
-  <meta name="description" content="抖音爆款雷达：用流量、销量、竞争度与佣金，筛选值得带的好商品。" />
-  <title>抖音爆款雷达 · 带货选品助手</title>
+  <meta name="description" content="抖音账号爆品雷达：授权自己的抖音号，分析作品流量、互动与带货内容，发现更适合账号的爆品机会。" />
+  <title>抖音账号爆品雷达 · 我的账号选品助手</title>
   <link rel="stylesheet" href="./styles.css" />
   <style>.hero-panel{background-image:url("./hero-products.png")}</style>
 </head>
@@ -14,26 +14,26 @@
     <aside class="sidebar" aria-label="主导航">
       <a class="brand" href="#" data-view-link="dashboard" aria-label="爆款雷达首页">
         <span class="brand-mark"><i data-lucide="scan-search"></i></span>
-        <span><strong>抖音爆款雷达</strong><small>DOUYIN PRODUCT LAB</small></span>
+        <span><strong>抖音爆品雷达</strong><small>CREATOR PRODUCT LAB</small></span>
       </a>
 
       <nav class="nav-list">
-        <button class="nav-item active" data-view="dashboard"><i data-lucide="layout-dashboard"></i><span>抖音选品</span></button>
-        <button class="nav-item" data-view="trends"><i data-lucide="trending-up"></i><span>抖音趋势</span></button>
+        <button class="nav-item active" data-view="dashboard"><i data-lucide="scan-line"></i><span>账号爆品分析</span></button>
+        <button class="nav-item" data-view="trends"><i data-lucide="trending-up"></i><span>作品趋势</span></button>
         <button class="nav-item" data-view="favorites"><i data-lucide="bookmark"></i><span>我的选品</span><b id="favoriteCount">0</b></button>
         <button class="nav-item" data-view="calculator"><i data-lucide="calculator"></i><span>利润测算</span></button>
       </nav>
 
       <div class="sidebar-card">
-        <span class="eyebrow">今日机会</span>
-        <strong>换季刚需正在升温</strong>
-        <p>家居日用近 6 小时流量增长 31%，低客单商品更易起量。</p>
-        <button class="text-action" data-jump-category="家居日用">立即查看 <i data-lucide="arrow-right"></i></button>
+        <span class="eyebrow">分析逻辑</span>
+        <strong>先看账号，再找爆品</strong>
+        <p>根据你自己的高播放作品、互动人群和内容标签，寻找更匹配的商品机会。</p>
+        <button class="text-action" id="sidebarConnectBtn">连接我的账号 <i data-lucide="arrow-right"></i></button>
       </div>
 
       <div class="account-row">
-        <div class="avatar">选</div>
-        <span><strong>选品运营</strong><small>个人工作台</small></span>
+        <div class="avatar">我</div>
+        <span><strong>我的抖音号</strong><small id="accountMiniStatus">尚未授权</small></span>
         <button class="icon-button" title="设置" aria-label="设置"><i data-lucide="settings"></i></button>
       </div>
     </aside>
@@ -42,35 +42,49 @@
       <header class="topbar">
         <div>
           <span class="eyebrow">MARKET SIGNAL · <span data-market-date>--</span></span>
-          <h1 id="pageTitle">抖音选品</h1>
+          <h1 id="pageTitle">账号爆品分析</h1>
         </div>
         <div class="topbar-actions">
           <label class="global-search">
             <i data-lucide="search"></i>
-            <input id="globalSearch" type="search" placeholder="搜商品、类目或卖点" autocomplete="off" />
+            <input id="globalSearch" type="search" placeholder="搜商品、品类或内容方向" autocomplete="off" />
             <kbd>⌘ K</kbd>
           </label>
-          <button id="dataSourceBtn" class="button ghost" title="数据接入中心"><i data-lucide="database-zap"></i><span>数据接入</span></button>
+          <button id="dataSourceBtn" class="button ghost" title="连接我的抖音账号"><i data-lucide="scan-line"></i><span>连接账号</span></button>
           <button id="refreshBtn" class="icon-button bordered" title="刷新数据" aria-label="刷新数据"><i data-lucide="refresh-cw"></i></button>
           <button id="exportBtn" class="button secondary"><i data-lucide="download"></i><span>导出选品</span></button>
         </div>
       </header>
 
       <section id="dashboardView" class="view active">
+        <section class="account-connect-panel" id="accountConnectPanel">
+          <div class="account-connect-icon"><i data-lucide="user-round-check"></i></div>
+          <div class="account-connect-copy">
+            <span class="eyebrow">MY DOUYIN ACCOUNT</span>
+            <h3>扫描并分析你自己的抖音号</h3>
+            <p>授权后读取允许范围内的主页与作品数据；尚未开通接口时，也可导入作品报表立即分析。</p>
+          </div>
+          <div class="account-connect-actions">
+            <span class="connection-pill" id="accountConnectionPill"><i></i> 待连接</span>
+            <button class="button primary" id="connectAccountBtn"><i data-lucide="scan-line"></i>扫码授权</button>
+            <button class="button secondary" id="quickImportBtn"><i data-lucide="file-up"></i>导入作品数据</button>
+          </div>
+        </section>
+
         <div class="hero-panel">
           <div class="hero-copy">
-            <span class="status-line demo" id="dataStatusLine"><i></i> 数据源：演示模式 · 等待接入</span>
-            <h2>抖音今天，什么商品<br />正在<span>快速起量？</span></h2>
-            <p>把抖音流量、直播销量、达人竞争度和精选联盟佣金放到同一张决策桌上，先找到机会，再算清利润。</p>
+            <span class="status-line demo" id="dataStatusLine"><i></i> 账号：演示模式 · 等待本人授权</span>
+            <h2>你的抖音号，下一条<br />适合带<span>什么爆品？</span></h2>
+            <p>从你自己的作品播放、互动和内容标签中提取账号优势，筛出人群匹配、表达自然、容易起量的商品方向。</p>
             <div class="hero-actions">
-              <button class="button primary" data-scroll-products><i data-lucide="radar"></i>开始选品</button>
+              <button class="button primary" data-scroll-products><i data-lucide="radar"></i>查看匹配爆品</button>
               <button class="button glass" data-open-method><i data-lucide="circle-help"></i>指数怎么计算</button>
             </div>
           </div>
           <div class="hero-stat">
-            <span>抖音今日爆发商品</span>
+            <span>账号高匹配机会</span>
             <strong id="heroHotCount">24</strong>
-            <p><b>+18%</b> 较昨日同期</p>
+            <p><b>DEMO</b> 演示账号样例</p>
           </div>
         </div>
 
@@ -86,7 +100,7 @@
 
         <section class="product-section" id="productSection">
           <div class="section-heading">
-            <div><span class="eyebrow">PRODUCT RADAR</span><h3>爆品机会池</h3></div>
+            <div><span class="eyebrow">ACCOUNT PRODUCT RADAR</span><h3>账号爆品机会池</h3></div>
             <div class="result-meta"><span id="resultCount">0</span> 款候选 · <span class="demo-mark" id="dataModeLabel">演示数据</span></div>
           </div>
 
@@ -117,7 +131,7 @@
       </section>
 
       <section id="trendsView" class="view">
-        <div class="section-heading page-heading"><div><span class="eyebrow">DOUYIN TREND INTELLIGENCE</span><h2>抖音趋势洞察</h2><p>从抖音类目热度、搜索词与直播成交信号，判断下一波增长来自哪里。</p></div></div>
+        <div class="section-heading page-heading"><div><span class="eyebrow">ACCOUNT CONTENT INTELLIGENCE</span><h2>我的作品趋势</h2><p>从你自己的作品流量、互动和内容标签中，判断粉丝对什么品类最有反应。</p></div></div>
         <div class="trend-layout">
           <article class="panel chart-panel"><div class="panel-head"><div><span class="eyebrow">CATEGORY HEAT</span><h3>类目流量走势</h3></div><span class="status-badge">近 7 日</span></div><canvas id="trendChart" width="900" height="360"></canvas><div class="chart-legend" id="chartLegend"></div></article>
           <article class="panel signal-panel"><div class="panel-head"><div><span class="eyebrow">SIGNALS</span><h3>增长信号</h3></div></div><div id="signalList"></div></article>
@@ -149,7 +163,7 @@
     </main>
 
     <nav class="mobile-nav" aria-label="移动端导航">
-      <button class="active" data-view="dashboard"><i data-lucide="layout-dashboard"></i><span>抖音选品</span></button><button data-view="trends"><i data-lucide="trending-up"></i><span>趋势</span></button><button data-view="favorites"><i data-lucide="bookmark"></i><span>收藏</span></button><button data-view="calculator"><i data-lucide="calculator"></i><span>测算</span></button>
+      <button class="active" data-view="dashboard"><i data-lucide="scan-line"></i><span>账号分析</span></button><button data-view="trends"><i data-lucide="trending-up"></i><span>作品趋势</span></button><button data-view="favorites"><i data-lucide="bookmark"></i><span>收藏</span></button><button data-view="calculator"><i data-lucide="calculator"></i><span>测算</span></button>
     </nav>
   </div>
 
@@ -161,25 +175,27 @@
     <section id="detailModal" class="modal detail-modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle" hidden></section>
     <section id="compareModal" class="modal compare-modal" role="dialog" aria-modal="true" aria-labelledby="compareTitle" hidden></section>
     <section id="methodModal" class="modal method-modal" role="dialog" aria-modal="true" aria-labelledby="methodTitle" hidden>
-      <button class="modal-close icon-button" data-close-modal aria-label="关闭"><i data-lucide="x"></i></button><span class="eyebrow">SCORING METHOD</span><h2 id="methodTitle">爆发指数怎么计算？</h2><p>用五组信号衡量一款商品是否“值得现在带”，满分 100。</p><div class="method-list"><div><b>35%</b><span><strong>流量增速</strong><small>近 24 小时曝光和搜索增长</small></span></div><div><b>25%</b><span><strong>成交动能</strong><small>近 7 日销量与转化趋势</small></span></div><div><b>20%</b><span><strong>竞争机会</strong><small>达人拥挤度越低，得分越高</small></span></div><div><b>15%</b><span><strong>佣金空间</strong><small>兼顾佣金率和客单价</small></span></div><div><b>5%</b><span><strong>内容适配</strong><small>痛点明确、易演示、易种草</small></span></div></div><p class="modal-note">当前为演示数据与规则模型，接入真实平台数据后可按你的类目校准权重。</p>
+      <button class="modal-close icon-button" data-close-modal aria-label="关闭"><i data-lucide="x"></i></button><span class="eyebrow">ACCOUNT MATCHING METHOD</span><h2 id="methodTitle">账号匹配指数怎么计算？</h2><p>用五组信号判断一款商品是否适合你的账号，满分 100。</p><div class="method-list"><div><b>30%</b><span><strong>历史流量表现</strong><small>同类内容的播放和增速</small></span></div><div><b>25%</b><span><strong>互动购买意向</strong><small>评论、收藏、分享与需求词</small></span></div><div><b>20%</b><span><strong>人群与品类匹配</strong><small>账号标签和商品受众的重合度</small></span></div><div><b>15%</b><span><strong>内容可表达性</strong><small>是否容易演示、对比和讲清痛点</small></span></div><div><b>10%</b><span><strong>经营空间</strong><small>价格、佣金、竞争与售后风险</small></span></div></div><p class="modal-note">未连接账号时使用演示数据；导入自己的作品报表后会按你的真实内容表现重新计算。</p>
     </section>
     <section id="sourceModal" class="modal source-modal" role="dialog" aria-modal="true" aria-labelledby="sourceTitle" hidden>
       <button class="modal-close icon-button" data-close-modal aria-label="关闭"><i data-lucide="x"></i></button>
-      <span class="eyebrow">DATA CONNECTIONS</span>
-      <h2 id="sourceTitle">数据接入中心</h2>
-      <p>这是可直接分享的静态版本：演示数据和本地 CSV / JSON 导入可直接使用；抖店实时同步需要部署专属服务端后再接入。</p>
+      <span class="eyebrow">MY DOUYIN CONNECTION</span>
+      <h2 id="sourceTitle">连接我的抖音账号</h2>
+      <p>不接抖店。正式版通过抖音开放平台让账号本人扫码授权，只读取你同意授权的数据范围。</p>
       <div class="source-list">
-        <article class="source-row"><span class="source-icon"><i data-lucide="store"></i></span><div><strong>抖店开放平台</strong><small>商品列表、店铺经营数据</small></div><b id="officialSourceStatus" class="source-state waiting">需服务端</b></article>
-        <article class="source-row"><span class="source-icon"><i data-lucide="chart-no-axes-combined"></i></span><div><strong>市场趋势数据</strong><small>全市场流量、增速、竞争度</small></div><b id="marketSourceStatus" class="source-state waiting">需服务端</b></article>
-        <article class="source-row"><span class="source-icon"><i data-lucide="file-up"></i></span><div><strong>本地文件导入</strong><small>支持 CSV / JSON，数据只在当前页面使用</small></div><b id="importSourceStatus" class="source-state connected">可用</b></article>
+        <article class="source-row"><span class="source-icon"><i data-lucide="scan-line"></i></span><div><strong>抖音账号扫码授权</strong><small>需要开放平台 AppID、服务端密钥和已审核回调域名</small></div><b id="officialSourceStatus" class="source-state waiting">待配置</b></article>
+        <article class="source-row"><span class="source-icon"><i data-lucide="video"></i></span><div><strong>主页与作品数据</strong><small>获批后同步允许范围内的近 30 天播放、点赞、评论、分享</small></div><b id="marketSourceStatus" class="source-state waiting">待审核</b></article>
+        <article class="source-row"><span class="source-icon"><i data-lucide="file-up"></i></span><div><strong>我的作品报表导入</strong><small>支持 CSV / JSON，文件只在当前浏览器分析</small></div><b id="importSourceStatus" class="source-state connected">立即可用</b></article>
       </div>
       <div class="source-actions">
-        <button id="importDataBtn" class="button secondary"><i data-lucide="upload"></i>导入 CSV / JSON</button>
+        <button id="officialAuthBtn" class="button primary"><i data-lucide="scan-line"></i>开始扫码授权</button>
+        <button id="importDataBtn" class="button secondary"><i data-lucide="upload"></i>导入作品 CSV / JSON</button>
         <button id="refreshSourceStatus" class="button ghost"><i data-lucide="refresh-cw"></i>查看接入状态</button>
-        <a class="button ghost" href="https://op.jinritemai.com/docs/guide-docs/140/583?docLabel=1" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>官方接入指南</a>
+        <a class="button ghost" href="https://developer.open-douyin.com/" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>抖音开放平台</a>
       </div>
       <input id="dataImportInput" type="file" accept=".csv,.json,application/json,text/csv" hidden />
-      <p class="modal-note">分享版不包含任何密钥。接入实时接口时，密钥必须只保存在服务端环境变量中，不能写入浏览器代码。</p>
+      <div class="import-format"><strong>作品报表建议字段</strong><code>标题、商品名称、类目、播放量、点赞数、评论数、分享数、发布时间</code></div>
+      <p class="modal-note">当前分享页不保存密钥。扫码授权必须配置专属服务端，AppSecret 和 access_token 只能保存在服务端环境变量中。</p>
     </section>
   </div>
 
