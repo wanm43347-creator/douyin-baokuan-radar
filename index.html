@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#12100f" />
-  <meta name="description" content="抖音账号爆品雷达：授权自己的抖音号，分析作品流量、互动与带货内容，发现更适合账号的爆品机会。" />
-  <title>抖音账号爆品雷达 · 我的账号选品助手</title>
+  <meta name="description" content="抖音个人号选品助手：Windows 本地扫描自己的抖音号，分析公开视频定位并推荐匹配好物。" />
+  <title>抖音个人号选品助手 · Windows 本地版</title>
   <link rel="stylesheet" href="./styles.css" />
   <style>.hero-panel{background-image:url("./hero-products.png")}</style>
 </head>
@@ -14,7 +14,7 @@
     <aside class="sidebar" aria-label="主导航">
       <a class="brand" href="#" data-view-link="dashboard" aria-label="爆款雷达首页">
         <span class="brand-mark"><i data-lucide="scan-search"></i></span>
-        <span><strong>抖音爆品雷达</strong><small>CREATOR PRODUCT LAB</small></span>
+        <span><strong>抖音个人号选品助手</strong><small>WINDOWS LOCAL EDITION</small></span>
       </a>
 
       <nav class="nav-list">
@@ -28,7 +28,7 @@
         <span class="eyebrow">分析逻辑</span>
         <strong>先看账号，再找爆品</strong>
         <p>根据你自己的高播放作品、互动人群和内容标签，寻找更匹配的商品机会。</p>
-        <button class="text-action" id="sidebarConnectBtn">连接我的账号 <i data-lucide="arrow-right"></i></button>
+        <button class="text-action" id="sidebarConnectBtn">下载电脑助手 <i data-lucide="arrow-right"></i></button>
       </div>
 
       <div class="account-row">
@@ -50,7 +50,7 @@
             <input id="globalSearch" type="search" placeholder="搜商品、品类或内容方向" autocomplete="off" />
             <kbd>⌘ K</kbd>
           </label>
-          <button id="dataSourceBtn" class="button ghost" title="连接我的抖音账号"><i data-lucide="scan-line"></i><span>连接账号</span></button>
+          <button id="dataSourceBtn" class="button ghost" title="下载 Windows 本地版"><i data-lucide="download"></i><span>下载电脑助手</span></button>
           <button id="refreshBtn" class="icon-button bordered" title="刷新数据" aria-label="刷新数据"><i data-lucide="refresh-cw"></i></button>
           <button id="exportBtn" class="button secondary"><i data-lucide="download"></i><span>导出选品</span></button>
         </div>
@@ -62,11 +62,11 @@
           <div class="account-connect-copy">
             <span class="eyebrow">MY DOUYIN ACCOUNT</span>
             <h3>扫描并分析你自己的抖音号</h3>
-            <p>授权后读取允许范围内的主页与作品数据；尚未开通接口时，也可导入作品报表立即分析。</p>
+            <p>下载 Windows 本地版，粘贴自己的主页链接并本人登录，即可分析公开作品与账号定位。</p>
           </div>
           <div class="account-connect-actions">
-            <span class="connection-pill" id="accountConnectionPill"><i></i> 待连接</span>
-            <button class="button primary" id="connectAccountBtn"><i data-lucide="scan-line"></i>扫码授权</button>
+            <span class="connection-pill connected" id="accountConnectionPill"><i></i> Windows版可用</span>
+            <button class="button primary" id="connectAccountBtn"><i data-lucide="download"></i>免费下载</button>
             <button class="button secondary" id="quickImportBtn"><i data-lucide="file-up"></i>导入作品数据</button>
           </div>
         </section>
@@ -180,22 +180,21 @@
     <section id="sourceModal" class="modal source-modal" role="dialog" aria-modal="true" aria-labelledby="sourceTitle" hidden>
       <button class="modal-close icon-button" data-close-modal aria-label="关闭"><i data-lucide="x"></i></button>
       <span class="eyebrow">MY DOUYIN CONNECTION</span>
-      <h2 id="sourceTitle">连接我的抖音账号</h2>
-      <p>不接抖店。正式版通过抖音开放平台让账号本人扫码授权，只读取你同意授权的数据范围。</p>
+      <h2 id="sourceTitle">下载 Windows 本地助手</h2>
+      <p>不用抖店，也不用配置开放平台。软件在你自己的电脑上打开专用 Edge，由本人登录后读取当前公开页面。</p>
       <div class="source-list">
-        <article class="source-row"><span class="source-icon"><i data-lucide="scan-line"></i></span><div><strong>抖音账号扫码授权</strong><small>需要开放平台 AppID、服务端密钥和已审核回调域名</small></div><b id="officialSourceStatus" class="source-state waiting">待配置</b></article>
-        <article class="source-row"><span class="source-icon"><i data-lucide="video"></i></span><div><strong>主页与作品数据</strong><small>获批后同步允许范围内的近 30 天播放、点赞、评论、分享</small></div><b id="marketSourceStatus" class="source-state waiting">待审核</b></article>
+        <article class="source-row"><span class="source-icon"><i data-lucide="monitor-down"></i></span><div><strong>Windows 免安装版</strong><small>解压后双击启动，不需要另外安装 Node.js</small></div><b id="officialSourceStatus" class="source-state connected">可下载</b></article>
+        <article class="source-row"><span class="source-icon"><i data-lucide="shield-check"></i></span><div><strong>登录与数据留在本机</strong><small>本人在专用 Edge 登录；密码、Cookie 和历史不会上传到本站</small></div><b id="marketSourceStatus" class="source-state connected">本机运行</b></article>
         <article class="source-row"><span class="source-icon"><i data-lucide="file-up"></i></span><div><strong>我的作品报表导入</strong><small>支持 CSV / JSON，文件只在当前浏览器分析</small></div><b id="importSourceStatus" class="source-state connected">立即可用</b></article>
       </div>
       <div class="source-actions">
-        <button id="officialAuthBtn" class="button primary"><i data-lucide="scan-line"></i>开始扫码授权</button>
+        <button id="officialAuthBtn" class="button primary"><i data-lucide="download"></i>下载 Windows 版</button>
         <button id="importDataBtn" class="button secondary"><i data-lucide="upload"></i>导入作品 CSV / JSON</button>
-        <button id="refreshSourceStatus" class="button ghost"><i data-lucide="refresh-cw"></i>查看接入状态</button>
-        <a class="button ghost" href="https://developer.open-douyin.com/" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>抖音开放平台</a>
+        <button id="refreshSourceStatus" class="button ghost"><i data-lucide="refresh-cw"></i>查看版本状态</button>
       </div>
       <input id="dataImportInput" type="file" accept=".csv,.json,application/json,text/csv" hidden />
       <div class="import-format"><strong>作品报表建议字段</strong><code>标题、商品名称、类目、播放量、点赞数、评论数、分享数、发布时间</code></div>
-      <p class="modal-note">当前分享页不保存密钥。扫码授权必须配置专属服务端，AppSecret 和 access_token 只能保存在服务端环境变量中。</p>
+      <p class="modal-note">当前版本适用于 Windows 10/11 与 Microsoft Edge。公开热度仅用于发现选品线索，不代表真实销量或收益。</p>
     </section>
   </div>
 
