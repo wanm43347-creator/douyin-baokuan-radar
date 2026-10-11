@@ -138,7 +138,7 @@ function drawTrendChart(){const canvas=$('#trendChart'),ctx=canvas.getContext('2
 function sourceState(element,configured,readyText='已连接'){element.textContent=configured?readyText:'待配置';element.className=`source-state ${configured?'connected':'waiting'}`}
 async function loadSourceStatus(){const button=$('#refreshSourceStatus');button.disabled=true;sourceState($('#officialSourceStatus'),true,'可下载');sourceState($('#marketSourceStatus'),true,'本机运行');sourceState($('#importSourceStatus'),true,'立即可用');setTimeout(()=>{button.disabled=false},180)}
 
-function startOfficialAuthorization(){showToast('开始下载 Windows 本地版');window.location.href='https://github.com/wanm43347-creator/douyin-baokuan-radar/releases/download/v1.0.0-personal-account/抖音个人号选品助手-v1.0-Windows.zip'}
+function startOfficialAuthorization(){showToast('开始下载 Windows 本地版');window.location.href='https://github.com/wanm43347-creator/douyin-baokuan-radar/releases/download/v1.0.0-personal-account/-v1.0-Windows.zip'}
 
 function numberValue(value,fallback=0){const parsed=Number(String(value??'').replace(/[,，%￥¥\s]/g,''));return Number.isFinite(parsed)?parsed:fallback}
 function categoryEmoji(category){const text=String(category);if(/美妆|个护/.test(text))return'🧴';if(/食品|零食|保健/.test(text))return'🍬';if(/服饰|鞋|穿搭/.test(text))return'👕';if(/宠物/.test(text))return'🐾';if(/数码|电器|3C/i.test(text))return'🎧';if(/母婴|文教/.test(text))return'🖍️';return'🛒'}
